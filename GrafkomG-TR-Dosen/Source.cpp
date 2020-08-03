@@ -5,7 +5,7 @@
 //tweening
 float xpos = 0;
 float deltax = 1;
-bool toRight = true;
+
 //mouse
 float xrot = 0.0f;
 float yrot = 0.0f;
@@ -29,6 +29,13 @@ void Display(void) {
 	glRotatef(yrot, 0.0f, 1.0f, 0.0f);
 	glScalef(xsca, ysca, zsca);
 	glTranslatef(xtra, ytra, ztra);
+
+	glBegin(GL_QUADS);
+	glVertex2f(-10.0, -10.0);
+	glVertex2f(-10.0, 10.0);
+	glVertex2f(10.0, 10.0);
+	glVertex2f(10.0, -10.0);
+	glEnd();
 
 	glPushMatrix();
 	glPopMatrix();
@@ -141,20 +148,9 @@ void timer(int) {
 	glutPostRedisplay();
 	glutTimerFunc(1000 / 60, timer, 0);
 
-	if (xpos < 150 && toRight) {
-		xpos += deltax;
-	}
-	else {
-		toRight = false;
-	}
+	yrot += 1;
 
-	if (xpos > 0 && !toRight) {
-		xpos -= deltax;
-	}
-	else {
-		toRight = true;
-	}
-
+	glutPostRedisplay();
 }
 
 int main(int argc, char** argv) {
